@@ -30,7 +30,7 @@ app.get('/customers', (req, res) => {
         }
     });
 });
-
+/*single customer*/
 app.get('/customers/:id', (req, res) => {
     const { id } = req.params;
     const sql = `SELECT * FROM customers WHERE id = ${id}`;
@@ -43,7 +43,7 @@ app.get('/customers/:id', (req, res) => {
         }
     });
 });
-
+/*add customer*/
 app.post('/add', (req, res) => {
     const sql = 'INSERT INTO customers SET ?';
     const customerObj = {
@@ -56,7 +56,7 @@ app.post('/add', (req, res) => {
         res.send('Customer created!');
     });
 });
-
+/*delete customer*/
 app.delete('/delete/:id', (req, res) => {
     const { id } = req.params;
     const sql = `DELETE FROM customers WHERE id= ${id}`;
