@@ -7,7 +7,7 @@ app.use(bodyParser.json());
 
 // MySql
 const connection = mysql.createConnection({
-    host: '@us-cdbr-east-05.cleardb.net',
+    host: 'us-cdbr-east-05.cleardb.net',
     user: 'b6a0f6ea76a433',
     password: '4fc83a75',
     database: 'heroku_2be4d4450185779'
@@ -68,9 +68,10 @@ app.delete('/delete/:id', (req, res) => {
 });
 
 // Check connect
-/*connection.connect(error => {
+connection.connect(error => {
+    console.log(error)
     if (error) throw error;
     console.log('Database server running!');
-});*/
+});
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
