@@ -15,7 +15,15 @@ const connection = mysql.createConnection({
 
 // Route
 app.get('/', (req, res) => {
-    res.send('Welcome to my API!');
+    const sql = 'SELECT * FROM customers';
+    connection.query(sql, (error, results) => {
+        if (error) throw error;
+        if (results.length > 0) {
+            res.json(results);
+        } else {
+            res.send('Not result');
+        }
+    });
 });
 
 // all customers
@@ -68,4 +76,9 @@ app.delete('/delete/:id', (req, res) => {
 });
 
 // Check connect
+connection.connect(error => {
+    if (error) throw error;
+    console.log('Database server running!');
+});
+
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
