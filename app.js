@@ -67,6 +67,19 @@ app.delete('/delete/:id', (req, res) => {
     });
 });
 
+/*age average */
+app.get('/average', (req, res) => {
+    const sql = 'SELECT AVG(YEAR(NOW())-YEAR(birthDate)) as `Average` FROM customers';
+    connection.query(sql, (error, results) => {
+        if (error) throw error;
+        if (results.length > 0) {
+            res.json(results);
+        } else {
+            res.send('Not result');
+        }
+    });
+});
+
 // Check connect
 connection.getConnection(error => {
     console.log(error)
