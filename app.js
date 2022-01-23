@@ -15,15 +15,7 @@ const connection = mysql.createConnection({
 
 // Route
 app.get('/', (req, res) => {
-    const sql = 'SELECT * FROM customers';
-    connection.query(sql, (error, results) => {
-        if (error) throw error;
-        if (results.length > 0) {
-            res.json(results);
-        } else {
-            res.send('Not result');
-        }
-    });
+    res.send('Welcome to my API!');
 });
 
 // all customers
