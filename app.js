@@ -41,7 +41,7 @@ app.get('/customers/:id', (req, res) => {
         if (result.length > 0) {
             res.json(result);
         } else {
-            res.send('Not result');
+            res.status(404).send('Not result');
         }
     });
 });
