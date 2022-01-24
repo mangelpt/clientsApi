@@ -45,7 +45,7 @@ app.get('/customers/:id', (req, res) => {
         }
     });
 });
-/*add customer*/
+/*add new costumer*/
 app.post('/add', (req, res) => {
     const sql = 'INSERT INTO customers SET ?';
     const customerObj = {
