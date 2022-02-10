@@ -2,9 +2,10 @@ const express = require('express');
 const mysql = require('mysql');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3080;
 const app = express();
 const temporalData = require('./TemporalData');
+const categories= require('./categories');
 app.use(bodyParser.json());
 app.use(cors())
 
@@ -34,16 +35,24 @@ app.get('/customers', (req, res) => {
     });
 });
 
-/*all data */
+/*all products */
 app.get('/products', (req, res) => {
     if (temporalData) {
         res.status(200).send(temporalData);
     } else {
-        res.status(400).send("no data")
+        res.status(400).send("data not found");
     }
 
 })
+/*all categories*/
+app.get('/categories', (req, res) => {
+    if (categories) {
+        res.status(200).send(categories);
+    } else {
+        res.status(400).send("data not found");
+    }
 
+})
 /*single customer*/
 app.get('/customers/:id', (req, res) => {
     const {id} = req.params;
