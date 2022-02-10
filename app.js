@@ -4,6 +4,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const PORT = process.env.PORT || 3000;
 const app = express();
+const temporalData = require('./TemporalData');
 app.use(bodyParser.json());
 app.use(cors())
 
@@ -32,10 +33,23 @@ app.get('/customers', (req, res) => {
         }
     });
 });
+
+/*all data */
+app.get('/products', (req, res) => {
+    if (temporalData) {
+        res.status(200).send(temporalData);
+    } else {
+        res.status(400).send("no data")
+    }
+
+})
+
 /*single customer*/
 app.get('/customers/:id', (req, res) => {
-    const { id } = req.params;
-    const sql = `SELECT * FROM customers WHERE id = ${id}`;
+    const {id} = req.params;
+    const sql = `SELECT *
+                 FROM customers
+                 WHERE id = ${id}`;
     connection.query(sql, (error, result) => {
         if (error) throw error;
         if (result.length > 0) {
@@ -51,7 +65,7 @@ app.post('/add', (req, res) => {
     const customerObj = {
         name: req.body.name,
         lastName: req.body.last,
-        birthDate :req.body.date
+        birthDate: req.body.date
     };
     connection.query(sql, customerObj, error => {
         if (error) throw error;
@@ -60,8 +74,10 @@ app.post('/add', (req, res) => {
 });
 /*delete customer*/
 app.delete('/delete/:id', (req, res) => {
-    const { id } = req.params;
-    const sql = `DELETE FROM customers WHERE id= ${id}`;
+    const {id} = req.params;
+    const sql = `DELETE
+                 FROM customers
+                 WHERE id = ${id}`;
 
     connection.query(sql, error => {
         if (error) throw error;
